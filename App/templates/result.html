@@ -1,0 +1,28 @@
+<!-- result.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfume Details</title>
+</head>
+<body>
+    <h1>Perfume Details</h1>
+    <div class="detailed-results">
+        {% for result in detailed_results %}
+        <div class="detailed-result">
+            <p>Name: {{ result['Name'] }}</p>
+            <p>Brand: {{ result['Brand'] }}</p>
+            <p>Ingredients: {{ result['Ingredients'] }}</p>
+            <p>Classification: {{ result['Classification'] }}</p>
+            <p>Family and Subfamily: {{ result['Family_and_Subfamily'] }}</p>
+            <p>Description: {{ result['Description'] }}</p>
+            <!-- Add more fields as needed -->
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
+
+
