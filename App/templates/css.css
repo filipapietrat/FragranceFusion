@@ -1,0 +1,16 @@
+<style>
+body {
+    font-family: 'Aspira', sans-serif;
+}
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+.logo {
+    width: 50px; /* Adjust the width as needed */
+
+}
+</style>
