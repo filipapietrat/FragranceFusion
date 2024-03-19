@@ -56,7 +56,7 @@
         <div class="search-results">
             {% for result in results %}
             <div class="search-result">
-                <a href="/result?perfume_url={{ result['Absolute URLs'] }}">
+                <a href="/result?perfume_url={{ result['Absolute URLs'] }}&perfume_name={{ result['Name'] }}&perfume_brand={{ result['Brand'] }}&perfume_image={{ result['Image_Path'] }}">
                     <img src="{{ url_for('static', filename=result['Image_Path']) }}" alt="{{ result['Name'] }}" width="200">
                     <p>{{ result['Name'] }}</p>
                     <p>{{ result['Brand'] }}</p>
@@ -67,6 +67,7 @@
     </div>
 </body>
 </html>
+
 
 
 
