@@ -4,23 +4,48 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfume Details</title>
+    <title>Your Perfume</title>
     <style>
-        /* Add styling for the boxes */
-        .perfume-box {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            margin-bottom: 20px;
+        /* Add styling for the center container */
+        .center-container {
+            text-align: center; /* Center align content */
+            font-family: 'Aspira', sans-serif; /* Use Aspira font */
+            margin: 40px auto; /* Add more margin above and center horizontally */
         }
 
-        /* Adjust styling for each box */
-        .left-box,
-        .middle-box,
-        .right-box {
-            width: 30%; /* Adjust the width as needed */
-            margin-right: 2%; /* Adjust the margin between boxes */
-            float: left;
+        /* Add styling for the container wrapping perfume boxes */
+        .perfume-container {
+            max-width: 1200px; /* Set max-width to prevent stretching */
+            margin: 0 auto; /* Center the container horizontally */
+        }
+
+        /* Add styling for the boxes */
+        .perfume-box {
+            display: inline-block; /* Display boxes inline */
+            width: calc(33.33% - 40px); /* Adjusted width calculation */
+            max-width: 300px; /* Set max-width to prevent wrapping */
+            height: 320px; /* Increased height for all boxes */
+            margin: 20px; /* Increased margin to create space */
+            border: 1px solid #ccc; /* Add border */
+            border-radius: 5px; /* Add border radius */
+            padding: 10px; /* Add padding */
+            text-align: center; /* Center align content */
+            overflow: hidden; /* Hide overflow content */
+            box-sizing: border-box; /* Include padding and border in the box size */
+        }
+
+        /* Style for the perfume image */
+        .perfume-image {
+            width: 100%; /* Set the width of the image to 100% of the container */
+            height: auto; /* Maintain aspect ratio */
+            margin-bottom: 10px; /* Add some margin below the image */
+        }
+
+        /* Add styling for the detailed result */
+        .detailed-result {
+            max-width: 800px; /* Set max-width for the description */
+            margin: 0 auto; /* Center the description horizontally */
+            text-align: center; /* Center-align text within the description */
         }
 
         /* Clear floats after the boxes */
@@ -30,56 +55,51 @@
     </style>
 </head>
 <body>
-    <!-- Display the perfume image -->
-    <img src="{{ url_for('static', filename=perfume_image) }}" alt="{{ perfume_name }}" width="200">
-    
-    <h1>Perfume Details</h1>
-    <div class="detailed-results">
-        {% for result in detailed_results %}
-        <div class="detailed-result">
-            <p>Name: {{ result['Name_x'] }}</p>
-            <p>Brand: {{ result['Brand_x'] }}</p>
-            <p>Ingredients: {{ result['Ingredients_x'] }}</p>
-            <p>Description: {{ result['Description_x'] }}</p>
-            <!-- Add more fields as needed -->
+    <!-- Center container for content -->
+    <div class="center-container">
+        <!-- Display the perfume image -->
+        <img src="{{ url_for('static', filename=perfume_image) }}" alt="{{ perfume_name }}" width="200">
+        
+        <h1>Perfume Details</h1>
+        <div class="detailed-results">
+            <!-- Display content from columns ending with '_x' only once -->
+            <div class="detailed-result">
+                <p>{{ detailed_results[0]['Name_x'] }}</p>
+                <p>by {{ detailed_results[0]['Brand_x'] }}</p>
+                <p>Ingredients: {{ detailed_results[0]['Ingredients_x'] }}</p>
+                <p>Description: {{ detailed_results[0]['Description_x'] }}</p>
+            </div>
         </div>
-        {% endfor %}
-    </div>
 
-    <!-- Left box -->
-    <div class="perfume-box left-box">
-        <h2>{{ detailed_results[0]['Name'] }}</h2>
-        <p><strong>Brand:</strong> {{ detailed_results[0]['Brand'] }}</p>
-        <p><strong>Ingredients:</strong> {{ detailed_results[0]['Ingredients'] }}</p>
-        <p><strong>Classification:</strong> {{ detailed_results[0]['Classification'] }}</p>
-        <p><strong>Family and Subfamily:</strong> {{ detailed_results[0]['Family_and_Subfamily'] }}</p>
-        <p><strong>Description:</strong> {{ detailed_results[0]['Description'] }}</p>
-    </div>
-
-    <!-- Middle box -->
-    <div class="perfume-box middle-box">
-        <h2>{{ detailed_results[1]['Name'] }}</h2>
-        <p><strong>Brand:</strong> {{ detailed_results[1]['Brand'] }}</p>
-        <p><strong>Ingredients:</strong> {{ detailed_results[1]['Ingredients'] }}</p>
-        <p><strong>Classification:</strong> {{ detailed_results[1]['Classification'] }}</p>
-        <p><strong>Family and Subfamily:</strong> {{ detailed_results[1]['Family_and_Subfamily'] }}</p>
-        <p><strong>Description:</strong> {{ detailed_results[1]['Description'] }}</p>
-    </div>
-
-    <!-- Right box -->
-    <div class="perfume-box right-box">
-        <h2>{{ detailed_results[2]['Name'] }}</h2>
-        <p><strong>Brand:</strong> {{ detailed_results[2]['Brand'] }}</p>
-        <p><strong>Ingredients:</strong> {{ detailed_results[2]['Ingredients'] }}</p>
-        <p><strong>Classification:</strong> {{ detailed_results[2]['Classification'] }}</p>
-        <p><strong>Family and Subfamily:</strong> {{ detailed_results[2]['Family_and_Subfamily'] }}</p>
-        <p><strong>Description:</strong> {{ detailed_results[2]['Description'] }}</p>
+        <!-- Container for perfume boxes -->
+        <div class="perfume-container">
+            <!-- Display details for each match -->
+            {% for i in range(3) %}
+            <div class="perfume-box">
+                <!-- Display the perfume image -->
+                <img class="perfume-image" src="{{ url_for('static', filename=detailed_results[i]['Image_Path']) }}" alt="{{ detailed_results[i]['Name'] }}">
+                <p><strong>It's a Match!</strong> </p>
+                <p><strong> {{ detailed_results[i]['rounded_percentage_match'] }}%</strong> </p>
+                <h2>{{ detailed_results[i]['Name'] }}</h2>
+                <p><strong>by</strong> {{ detailed_results[i]['Brand'] }}</p>
+            </div>
+            {% endfor %}
+        </div>
     </div>
 
     <!-- Clear floats -->
     <div class="clear"></div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
 
 
 

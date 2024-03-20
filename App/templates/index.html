@@ -1,14 +1,40 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FraganceFusion</title>
+    <title>FragranceFusion</title>
     <style>
+        /* Add styling for search result items */
+        .search-result {
+            display: inline-block; /* Display search result items side by side */
+            width: 200px; /* Set a fixed width for the result boxes */
+            height: 300px; /* Set a fixed height for the result boxes */
+            margin: 10px; /* Adjust margin as needed */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center; /* Center text horizontally */
+            transition: all 0.3s ease; /* Add transition effect for smoother hover */
+        }
+
+        /* Add hover effect */
+        .search-result:hover {
+            transform: scale(1.05); /* Scale up the box on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow effect on hover */
+        }
+
+        /* Style for search result images */
+        .search-result img {
+            width: 150px; /* Set a fixed width for the images */
+            height: 150px; /* Set a fixed height for the images */
+            object-fit: cover; /* Maintain aspect ratio and crop if necessary */
+            margin-bottom: 10px; /* Add some margin below the image */
+        }
+
         body {
-            font-family: 'Aspira', sans-serif;
+            font-family: 'Aspira', sans-serif; /* Use Aspira font */
         }
 
         .container {
@@ -35,12 +61,10 @@
             margin-top: 20px; /* Add some margin at the top */
         }
 
-        /* Example styling for search result items */
-        .search-result {
-            margin: 10px; /* Adjust margin as needed */
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        /* Style for search result links */
+        .search-result a {
+            text-decoration: none; /* Remove underlines */
+            color: black; /* Set text color to black */
         }
     </style>
 </head>
@@ -57,7 +81,13 @@
             {% for result in results %}
             <div class="search-result">
                 <a href="/result?perfume_url={{ result['Absolute URLs'] }}&perfume_name={{ result['Name'] }}&perfume_brand={{ result['Brand'] }}&perfume_image={{ result['Image_Path'] }}">
-                    <img src="{{ url_for('static', filename=result['Image_Path']) }}" alt="{{ result['Name'] }}" width="200">
+                    {% if result['Image_Path'] %}
+                        <!-- If Image_Path exists, display the image -->
+                        <img src="{{ url_for('static', filename=result['Image_Path']) }}" alt="{{ result['Name'] }}">
+                    {% else %}
+                        <!-- If Image_Path does not exist, display a placeholder or message -->
+                        <p>No image available</p>
+                    {% endif %}
                     <p>{{ result['Name'] }}</p>
                     <p>{{ result['Brand'] }}</p>
                 </a>
@@ -67,10 +97,6 @@
     </div>
 </body>
 </html>
-
-
-
-
 
 
 
