@@ -36,8 +36,8 @@
 
         /* Style for the perfume image */
         .perfume-image {
-            width: 100%; /* Set the width of the image to 100% of the container */
-            height: auto; /* Maintain aspect ratio */
+            width: 100px; /* Set a fixed width for the image */
+            height: 100px; /* Set a fixed height for the image */
             margin-bottom: 10px; /* Add some margin below the image */
         }
 
@@ -52,9 +52,28 @@
         .clear {
             clear: both;
         }
+
+        /* Style for the logo */
+        .logo {
+            width: 200px; /* Adjust the width as needed */
+            margin: 20px auto 0; /* Center the logo horizontally with some margin and place it at the top */
+            text-align: center; /* Center align the logo */
+        }
+
+        /* Style for the logo anchor */
+        .logo-link {
+            display: block; /* Ensure the anchor takes up the entire space */
+        }
     </style>
 </head>
 <body>
+    <!-- Logo linked to homepage -->
+    <div class="logo">
+        <a href="/" class="logo-link">
+            <img src="/static/fragancefusion.png" alt="Logo" style="width: 200px;">
+        </a>
+    </div>
+
     <!-- Center container for content -->
     <div class="center-container">
         <!-- Display the perfume image -->
@@ -66,8 +85,8 @@
             <div class="detailed-result">
                 <p>{{ detailed_results[0]['Name_x'] }}</p>
                 <p>by {{ detailed_results[0]['Brand_x'] }}</p>
-                <p>Ingredients: {{ detailed_results[0]['Ingredients_x'] }}</p>
-                <p>Description: {{ detailed_results[0]['Description_x'] }}</p>
+                <p> {{ detailed_results[0]['Ingredients_x'] }}</p>
+                <p> {{ detailed_results[0]['Description_x'] }}</p>
             </div>
         </div>
 
@@ -77,7 +96,11 @@
             {% for i in range(3) %}
             <div class="perfume-box">
                 <!-- Display the perfume image -->
-                <img class="perfume-image" src="{{ url_for('static', filename=detailed_results[i]['Image_Path']) }}" alt="{{ detailed_results[i]['Name'] }}">
+                {% for row in image_rows %}
+                    {% if row['Absolute URLs'] == detailed_results[i]['Absolute URLs'] %}
+                        <img class="perfume-image" src="{{ url_for('static', filename=row['Image_Path']) }}" alt="{{ detailed_results[i]['Name'] }}">
+                    {% endif %}
+                {% endfor %}
                 <p><strong>It's a Match!</strong> </p>
                 <p><strong> {{ detailed_results[i]['rounded_percentage_match'] }}%</strong> </p>
                 <h2>{{ detailed_results[i]['Name'] }}</h2>
@@ -91,6 +114,15 @@
     <div class="clear"></div>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
 
 
 

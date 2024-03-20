@@ -35,6 +35,8 @@
 
         body {
             font-family: 'Aspira', sans-serif; /* Use Aspira font */
+            margin: 0; /* Remove default margin */
+            padding: 0; /* Remove default padding */
         }
 
         .container {
@@ -43,10 +45,7 @@
             justify-content: center;
             flex-direction: column;
             text-align: center;
-        }
-
-        .logo {
-            width: 200px; /* Adjust the width as needed */
+            padding-top: 150px; /* Add padding to the top of the container */
         }
 
         h1 {
@@ -66,16 +65,49 @@
             text-decoration: none; /* Remove underlines */
             color: black; /* Set text color to black */
         }
+
+        /* Style for the logo */
+        .logo-container {
+            position: fixed; /* Set position to fixed */
+            top: 0; /* Align to the top of the page */
+            left: 0; /* Align to the left of the page */
+            width: 100%; /* Full width */
+            background-color: white; /* White background */
+            padding: 10px 0; /* Add padding top and bottom */
+            z-index: 999; /* Ensure the logo stays on top of other content */
+            text-align: center; /* Center the logo */
+        }
+
+        .logo {
+            width: 200px; /* Adjust the width as needed */
+        }
+
+        /* Style for the search bar */
+        .search-form {
+            margin-bottom: 20px; /* Add some margin to separate from search results */
+        }
+
+        .search-form input[type="text"] {
+            padding: 15px; /* Add padding to the input */
+            width: 850px; /* Set a wider width for the input */
+            height: 30px; /* Set a higher height for the input */
+            border-radius: 20px; /* Make corners round */
+            border: 1px solid #ccc; /* Add border */
+        }
     </style>
 </head>
 <body>
+    <div class="logo-container">
+        <a href="/">
+            <img class="logo" src="/static/fragancefusion.png" alt="Logo">
+        </a>
+    </div>
     <div class="container">
-        <h1>FragranceFusion</h1>
-        <img class="logo" src="/static/A Fragrance Story_BAJIRAO.jpg" alt="Logo">
-        <form action="/search" method="GET">
-            <input type="text" name="query" placeholder="Search perfumes...">
-            <input type="submit" value="Search">
-        </form>
+        <div class="search-form">
+            <form action="/search" method="GET">
+                <input type="text" name="query" placeholder="Find your perfume match...">
+            </form>
+        </div>
         <!-- Search results will be displayed here -->
         <div class="search-results">
             {% for result in results %}
@@ -85,7 +117,7 @@
                         <!-- If Image_Path exists, display the image -->
                         <img src="{{ url_for('static', filename=result['Image_Path']) }}" alt="{{ result['Name'] }}">
                     {% else %}
-                        <!-- If Image_Path does not exist, display a placeholder or message -->
+                        <!-- If Image_Path does not exist,-->
                         <p>No image available</p>
                     {% endif %}
                     <p>{{ result['Name'] }}</p>
@@ -97,7 +129,4 @@
     </div>
 </body>
 </html>
-
-
-
 
