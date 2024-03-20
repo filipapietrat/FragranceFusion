@@ -32,12 +32,19 @@
             text-align: center; /* Center align content */
             overflow: hidden; /* Hide overflow content */
             box-sizing: border-box; /* Include padding and border in the box size */
+            transition: transform 0.3s ease; /* Add transition effect for smoother hover */
+            color: black;
         }
+
+        .perfume-box h2,
+.perfume-box p {
+    color: black; /* Add this line to ensure all text inside perfume boxes is black */
+}
 
         /* Style for the perfume image */
         .perfume-image {
-            width: 100px; /* Set a fixed width for the image */
-            height: 100px; /* Set a fixed height for the image */
+            width: 100px; /* Set the width of the image to 100% of the container */
+            height: 100px; /* Maintain aspect ratio */
             margin-bottom: 10px; /* Add some margin below the image */
         }
 
@@ -53,26 +60,33 @@
             clear: both;
         }
 
-        /* Style for the logo */
-        .logo {
-            width: 200px; /* Adjust the width as needed */
-            margin: 20px auto 0; /* Center the logo horizontally with some margin and place it at the top */
-            text-align: center; /* Center align the logo */
-        }
+/* Style for the logo */
+.logo {
+    display: block; /* Make the logo behave as a block element */
+    width: 200px; /* Adjust the width as needed */
+    margin: 20px auto; /* Set margin-top and margin-bottom to auto to center vertically */
+    text-align: center; /* Center the logo horizontally */
+}
+
+        
 
         /* Style for the logo anchor */
         .logo-link {
             display: block; /* Ensure the anchor takes up the entire space */
         }
+
+        /* Add hover effect */
+        .perfume-box:hover {
+            transform: scale(1.05); /* Scale up the box on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow effect on hover */
+        }
     </style>
 </head>
 <body>
     <!-- Logo linked to homepage -->
-    <div class="logo">
-        <a href="/" class="logo-link">
-            <img src="/static/fragancefusion.png" alt="Logo" style="width: 200px;">
-        </a>
-    </div>
+    <a href="/" class="logo-link">
+        <img class="logo" src="/static/fragancefusion.png" alt="Logo">
+    </a>
 
     <!-- Center container for content -->
     <div class="center-container">
@@ -94,19 +108,22 @@
         <div class="perfume-container">
             <!-- Display details for each match -->
             {% for i in range(3) %}
-            <div class="perfume-box">
-                <!-- Display the perfume image -->
-                {% for row in image_rows %}
-                    {% if row['Absolute URLs'] == detailed_results[i]['Absolute URLs'] %}
-                        <img class="perfume-image" src="{{ url_for('static', filename=row['Image_Path']) }}" alt="{{ detailed_results[i]['Name'] }}">
-                    {% endif %}
-                {% endfor %}
-                <p><strong>It's a Match!</strong> </p>
-                <p><strong> {{ detailed_results[i]['rounded_percentage_match'] }}%</strong> </p>
-                <h2>{{ detailed_results[i]['Name'] }}</h2>
-                <p><strong>by</strong> {{ detailed_results[i]['Brand'] }}</p>
-            </div>
+    <a href="{{ detailed_results[i]['Absolute URLs'] }}" class="perfume-box-link">
+        <div class="perfume-box">
+            <!-- Display the perfume image -->
+            {% for row in image_rows %}
+                {% if row['Absolute URLs'] == detailed_results[i]['Absolute URLs'] %}
+                    <img class="perfume-image" src="{{ url_for('static', filename=row['Image_Path']) }}" alt="{{ detailed_results[i]['Name'] }}">
+                {% endif %}
             {% endfor %}
+            <p><strong>It's a Match!</strong> </p>
+            <p><strong> {{ detailed_results[i]['rounded_percentage_match'] }}%</strong> </p>
+            <h2>{{ detailed_results[i]['Name'] }}</h2>
+            <p><strong>by</strong> {{ detailed_results[i]['Brand'] }}</p>
+        </div>
+    </a>
+{% endfor %}
+
         </div>
     </div>
 
@@ -114,22 +131,6 @@
     <div class="clear"></div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
