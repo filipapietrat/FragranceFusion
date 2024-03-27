@@ -93,7 +93,7 @@
         <!-- Display the perfume image -->
         <img src="{{ url_for('static', filename=perfume_image) }}" alt="{{ perfume_name }}" width="200">
         
-        <h1>Perfume Details</h1>
+       
         <div class="detailed-results">
             <!-- Display content from columns ending with '_x' only once -->
             <div class="detailed-result">
@@ -116,9 +116,9 @@
                     <img class="perfume-image" src="{{ url_for('static', filename=row['Image_Path']) }}" alt="{{ detailed_results[i]['Name'] }}">
                 {% endif %}
             {% endfor %}
-            <p><strong>It's a Match!</strong> </p>
-            <p><strong> {{ detailed_results[i]['rounded_percentage_match'] }}%</strong> </p>
-            <h2>{{ detailed_results[i]['Name'] }}</h2>
+            <h4><strong>It's a Match!</strong> </h4>
+            <h3><strong> {{ detailed_results[i]['rounded_percentage_match'] }}%</strong> </h3>
+            <p>{{ detailed_results[i]['Name'] }}</p>
             <p><strong>by</strong> {{ detailed_results[i]['Brand'] }}</p>
         </div>
     </a>

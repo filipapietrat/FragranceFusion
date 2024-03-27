@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FragranceFusion</title>
     <style>
+        /* CSS styles */
+        /* Add your CSS styles here */
         /* Add styling for search result items */
         .search-result {
             display: inline-block; /* Display search result items side by side */
@@ -52,6 +54,51 @@
             margin-top: 0; /* Remove default margin */
         }
 
+        /* Style for the carousel container */
+        .carousel-container {
+            text-align: center; /* Center the contents horizontally */
+            margin-top: 50px; /* Add margin from the top */
+        }
+
+        .carousel {
+            display: flex; /* Set display to flex */
+            justify-content: center; /* Center the items horizontally */
+            flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+        }
+
+        .carousel-item {
+            width: 200px; /* Set a fixed width for the carousel items */
+            height: 300px; /* Set a fixed height for the carousel items */
+            margin: 10px; /* Adjust margin as needed */
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center; /* Center text horizontally */
+            transition: all 0.3s ease; /* Add transition effect for smoother hover */
+            color: black; /* Set text color to black */
+        }
+
+        .carousel-item:hover {
+            transform: scale(1.05); /* Scale up the box on hover */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add shadow effect on hover */
+        }
+
+        .carousel-item img {
+            width: 150px; /* Set a fixed width for the images */
+            height: 150px; /* Set a fixed height for the images */
+            object-fit: cover; /* Maintain aspect ratio and crop if necessary */
+            margin-bottom: 10px; /* Add some margin below the image */
+        }
+
+        .carousel-item a {
+            text-decoration: none !important; /* Remove underlines */
+            color: black; /* Set text color to black */
+        }
+
+        .carousel-item p {
+            text-decoration: none; /* Remove underlines */
+        }
+
         /* Flexbox styles for search results */
         .search-results {
             display: flex; /* Set search results container to flex */
@@ -75,6 +122,7 @@
             background-color: white; /* White background */
             padding: 10px 0; /* Add padding top and bottom */
             z-index: 999; /* Ensure the logo stays on top of other content */
+           
             text-align: center; /* Center the logo */
         }
 
@@ -95,6 +143,7 @@
             border: 1px solid #ccc; /* Add border */
         }
     </style>
+
 </head>
 <body>
     <div class="logo-container">
@@ -108,6 +157,31 @@
                 <input type="text" name="query" placeholder="Find your perfume match...">
             </form>
         </div>
+    </div>
+    <!-- Carousel titled "Most Searched" -->
+    {% if not on_search_page %}
+    <div class="carousel-container">
+        <h2>Most Searched</h2>
+        <div class="carousel">
+            {% for perfume in most_searched_perfumes %}
+                <a href="/result?perfume_url={{ perfume['Absolute URLs'] }}&perfume_name={{ perfume['Name'] }}&perfume_brand={{ perfume['Brand'] }}&perfume_image={{ perfume['Image_Path'] }}" class="carousel-item-link" style="text-decoration: none;">
+                    <div class="carousel-item">
+                        <!-- Display the perfume image -->
+                        {% if perfume['Image_Path'] %}
+                            <img src="{{ url_for('static', filename=perfume['Image_Path']) }}" alt="{{ perfume['Name'] }}">
+                        {% else %}
+                            <!-- If Image_Path does not exist, display a placeholder image -->
+                            <p>No image available</p>
+                        {% endif %}
+                        <p>{{ perfume['Name'] }}</p>
+                        <p>{{ perfume['Brand'] }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    <div class="container">
         <!-- Search results will be displayed here -->
         <div class="search-results">
             {% for result in results %}
@@ -124,9 +198,11 @@
                     <p>{{ result['Brand'] }}</p>
                 </a>
             </div>
-            {% endfor %}
+            {%  endfor %}
         </div>
     </div>
 </body>
 </html>
 
+
+    
