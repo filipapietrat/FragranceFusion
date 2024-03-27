@@ -9,8 +9,12 @@
         /* Add styling for the center container */
         .center-container {
             text-align: center; /* Center align content */
-            font-family: 'Aspira', sans-serif; /* Use Aspira font */
+            font-family: 'Roboto:', sans-serif; /* Use Aspira font */
             margin: 40px auto; /* Add more margin above and center horizontally */
+            /* Add background image */
+            background-image: url("/static/background.jpg");
+            background-size: cover;
+            background-position: center;
         }
 
         /* Add styling for the container wrapping perfume boxes */
@@ -37,9 +41,9 @@
         }
 
         .perfume-box h2,
-.perfume-box p {
-    color: black; /* Add this line to ensure all text inside perfume boxes is black */
-}
+        .perfume-box p {
+            color: black; /* Add this line to ensure all text inside perfume boxes is black */
+        }
 
         /* Style for the perfume image */
         .perfume-image {
@@ -60,12 +64,23 @@
             clear: both;
         }
 
-/* Style for the logo */
+       /* Style for the logo */
 .logo {
     display: block; /* Make the logo behave as a block element */
     width: 200px; /* Adjust the width as needed */
-    margin: 20px auto; /* Set margin-top and margin-bottom to auto to center vertically */
+    margin: 20px auto; /* Set margin-top and margin-bottom to 20px */
     text-align: center; /* Center the logo horizontally */
+}
+
+/* Style for the center container */
+.center-container {
+    text-align: center; /* Center align content */
+    font-family: 'Roboto:', sans-serif; /* Use Aspira font */
+    margin: 40px auto 20px; /* Add more margin above and center horizontally, and reduce margin below */
+    /* Add background image */
+    background-image: url("/static/background.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
         
@@ -91,7 +106,8 @@
     <!-- Center container for content -->
     <div class="center-container">
         <!-- Display the perfume image -->
-        <img src="{{ url_for('static', filename=perfume_image) }}" alt="{{ perfume_name }}" width="200">
+<!-- Display the perfume image -->
+<img src="{{ url_for('static', filename=perfume_image) }}" alt="{{ perfume_name }}" width="200" style="margin-top: 30px;">
         
        
         <div class="detailed-results">
@@ -131,9 +147,3 @@
     <div class="clear"></div>
 </body>
 </html>
-
-
-
-
-
-

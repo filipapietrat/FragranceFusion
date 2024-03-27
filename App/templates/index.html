@@ -34,12 +34,15 @@
             object-fit: cover; /* Maintain aspect ratio and crop if necessary */
             margin-bottom: 10px; /* Add some margin below the image */
         }
-
         body {
-            font-family: 'Aspira', sans-serif; /* Use Aspira font */
-            margin: 0; /* Remove default margin */
-            padding: 0; /* Remove default padding */
-        }
+    font-family: 'Roboto:', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("/static/background.jpg"); /* Assuming background.jpg is in your static folder */
+    background-size: cover;
+    background-position: center;
+}
+
 
         .container {
             display: flex;
@@ -158,29 +161,39 @@
             </form>
         </div>
     </div>
-    <!-- Carousel titled "Most Searched" -->
-    {% if not on_search_page %}
-    <div class="carousel-container">
-        <h2>Most Searched</h2>
-        <div class="carousel">
-            {% for perfume in most_searched_perfumes %}
-                <a href="/result?perfume_url={{ perfume['Absolute URLs'] }}&perfume_name={{ perfume['Name'] }}&perfume_brand={{ perfume['Brand'] }}&perfume_image={{ perfume['Image_Path'] }}" class="carousel-item-link" style="text-decoration: none;">
-                    <div class="carousel-item">
-                        <!-- Display the perfume image -->
-                        {% if perfume['Image_Path'] %}
-                            <img src="{{ url_for('static', filename=perfume['Image_Path']) }}" alt="{{ perfume['Name'] }}">
-                        {% else %}
-                            <!-- If Image_Path does not exist, display a placeholder image -->
-                            <p>No image available</p>
-                        {% endif %}
-                        <p>{{ perfume['Name'] }}</p>
-                        <p>{{ perfume['Brand'] }}</p>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
+<!-- Carousel titled "Most Searched" -->
+{% if not on_search_page %}
+<div class="carousel-container">
+    <div class="carousel">
+        {% for perfume in most_searched_perfumes %}
+            <a href="/result?perfume_url={{ perfume['Absolute URLs'] }}&perfume_name={{ perfume['Name'] }}&perfume_brand={{ perfume['Brand'] }}&perfume_image={{ perfume['Image_Path'] }}" class="carousel-item-link" style="text-decoration: none;">
+                <div class="carousel-item">
+                    <!-- Display the perfume image -->
+                    {% if perfume['Image_Path'] %}
+                        <img src="{{ url_for('static', filename=perfume['Image_Path']) }}" alt="{{ perfume['Name'] }}">
+                    {% else %}
+                        <!-- If Image_Path does not exist, display a placeholder image -->
+                        <p>No image available</p>
+                    {% endif %}
+                    <p>{{ perfume['Name'] }}</p>
+                    <p>{{ perfume['Brand'] }}</p>
+                </div>
+            </a>
+        {% endfor %}
     </div>
-    {% endif %}
+</div>
+
+
+
+<!-- Add the copy underneath the carousel -->
+<!-- Add the copy underneath the carousel -->
+<div class="container">
+    <p style="font-size: 21px; margin-top: 0px; color: #C8B4E9  ;">Discover your perfect scent. Explore our collection of exquisite perfumes crafted from nature's finest ingredients. Find your signature fragrance today.</p>
+</div>
+{% endif %}
+
+
+
     <div class="container">
         <!-- Search results will be displayed here -->
         <div class="search-results">
@@ -203,6 +216,3 @@
     </div>
 </body>
 </html>
-
-
-    
