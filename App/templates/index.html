@@ -168,7 +168,7 @@
         .copy-container {
             background-color: #f0f0f0; /* Light gray background */
             padding: 20px; /* Add padding */
-            color: #ab967d; /* Taupe text color */
+            color: #967bb6; /* Taupe text color */
             text-align: center; /* Center the text horizontally */
         }
     </style>
@@ -218,7 +218,7 @@
 
 <!-- Add the copy underneath the carousel -->
 <div class="container copy-container">
-    <p><b>Discover your perfect scent. Explore our collection of exquisite perfumes crafted from nature's finest ingredients. Find your signature fragrance today.</b></p>
+    <p><b>Discover fragrances that match your taste. Explore our curated collection of exquisite perfumes crafted from nature's finest ingredients. Find your signature scent today.</b></p>
 </div>
 
 <!-- Search results will be displayed here -->
@@ -232,7 +232,7 @@
                     <img src="{{ url_for('static', filename=result['Image_Path']) }}" alt="{{ result['Name'] }}">
                 {% else %}
                     <!-- If Image_Path does not exist, display the specific no image -->
-                    <img src="/static/noimage.jpg" alt="No Image Available">
+                    <img src="/static/noimage.jpeg" alt="No Image Available">
                 {% endif %}
                 <p>{{ result['Name'] }}</p>
                 <p>{{ result['Brand'] }}</p>
